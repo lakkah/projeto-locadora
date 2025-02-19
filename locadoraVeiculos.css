@@ -1,0 +1,445 @@
+body, html {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+aside {
+    background-color: rgb(158, 206, 236);
+    height: 100vh;
+}
+#nome {
+    width: 500px; 
+}
+#incluir-cliente label {
+    margin-bottom: 5px;
+    margin-right: 10px;
+    display: inline-block;
+    width: 150px; 
+}
+#cpf {
+    width: 200px; 
+}
+main {
+    background-color: rgb(167, 210, 236);
+}
+
+.submenu {
+    color: rgb(3, 80, 132);
+}
+
+div {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: grid;
+    grid-template-columns: 2fr 8fr;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    font-weight: bold;
+}
+
+h2 {
+    color: rgb(3, 80, 132);
+    margin-bottom: 20px;
+}
+
+
+h1 { 
+    position: relative;
+    left: 600px;
+    color: white;
+    margin: 0;
+    padding: 30px;
+}
+
+header {
+    background-color: rgb(3, 80, 132);
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    padding: 3px 5px;
+    font-size: 1.05rem;
+    background-color: rgb(158, 206, 236);
+    color: rgb(3, 80, 132);
+    border: 0;
+    margin: 3px 0px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+    text-align: left;
+}
+
+#devolver-veiculo h2 {
+    text-align: center; 
+    color: #0d4e78; 
+}
+
+#informacoes-locacao p {
+    margin: 10px 0; 
+    display: flex; 
+    justify-content: space-between; 
+    font-size: 16px; 
+    line-height: 1.2;
+}
+button:disabled {
+    background-color: #cccccc !important; 
+    color: #666666 !important; 
+    cursor: not-allowed !important; 
+    opacity: 0.6 !important; 
+}
+
+
+label[for="quilometragem-devolucao"] {
+    display: inline; 
+    margin-top: 10px; 
+    font-size: 16px; 
+}
+
+#quilometragem-devolucao {
+    width: 100px; 
+    padding: 5px; 
+    font-size: 16px; 
+    margin-top: 5px; 
+}
+
+button.salvarBtn {
+    display: block; 
+    width: 100%; 
+    padding: 10px; 
+    background-color: #0d4e78; 
+    color: white; 
+    font-size: 16px; 
+    border: none; 
+    border-radius: 5px; 
+    margin-top: 20px; 
+    cursor: pointer; 
+}
+
+button.salvarBtn:hover {
+    background-color: #093d61; 
+}
+#info-cliente {
+    margin: 0;
+    padding: 0;
+    line-height: 1.2; 
+}
+
+#info-cliente p {
+    margin: 0; 
+    padding: 0;
+    display: block; 
+}
+
+#cpf-job {
+    display: block;
+}
+
+#nome-job{
+    display: block;
+}
+
+
+.salvarBtn {
+    background-color: #003366; 
+    color: white; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    width: auto !important; 
+    display: inline-block !important;
+}
+
+.alugarBtn {
+    background-color: #003366; 
+    color: white; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    width: 88px !important; 
+    display: inline-block !important;
+}
+
+button:hover {
+    background-color: rgb(3, 80, 132);
+    color: white;
+}
+
+body {
+    margin: 0;
+    font-family: Arial;
+}
+
+hr {
+    border: 1px inset rgb(136, 196, 234);
+}
+
+#jobson{
+    border: 1px inset rgb(136, 196, 234);
+    width: 310px;
+    margin-left: 215px;
+}
+
+
+#tabela-clientes {
+    width: 800px; 
+    margin: 0; 
+    border-collapse: collapse;
+}
+
+#tabela-clientes th,
+#tabela-clientes td {
+    border: 1px solid #ddd;
+    padding: 10px; 
+    text-align: left;
+}
+
+#tabela-clientes th {
+    background-color: #003366;
+    color: white; 
+    padding-top: 14px;
+    padding-bottom: 14px; 
+}
+
+
+#tabela-clientes th:nth-child(1),
+#tabela-clientes th:nth-child(2),
+#tabela-clientes th:nth-child(3),
+#tabela-clientes th:nth-child(4) {
+    width: 200px;
+    margin: 0 auto; 
+}
+
+#tabela-clientes tr:nth-child(even) {
+    background-color:#e7eaf0 
+}
+
+#tabela-clientes tr:nth-child(odd) {
+    background-color: #cbd2e0 
+}
+
+hr {
+    border: 1px inset rgb(136, 196, 234);
+    }
+
+    #tabela-clientes td:last-child {
+        display: flex;
+        gap: 10px; 
+    }
+    
+    #tabela-clientes td:last-child button {
+        background-color: rgb(3, 80, 132);
+        color: white;
+        border: none;
+        padding: 5px 10px; 
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        margin: 2px 1px;
+        cursor: pointer;
+    }
+
+    
+
+#incluir-veiculo label {
+    margin-bottom: 5px;
+    margin-right: 10px;
+    display: inline-block;
+    width: 200px; 
+}
+
+#placa, #modelo, #ano-fabricacao, #valor-diaria, #quilometragem {
+    width: 200px; 
+}
+
+#tabela-veiculos {
+    width: 70%;
+    margin: 0;
+    border-collapse: collapse;
+}
+
+#tabela-veiculos th,
+#tabela-veiculos td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+#tabela-veiculos th {
+    background-color: #003366;
+    color: white;
+}
+
+#tabela-veiculos tr:nth-child(even) {
+    background-color: #e7eaf0;
+}
+
+#tabela-veiculos tr:nth-child(odd) {
+    background-color: #cbd2e0;
+}
+
+#tabela-veiculos td:last-child {
+    display: flex;
+    gap: 10px; 
+}
+
+#tabela-veiculos td:last-child button {
+    background-color: rgb(3, 80, 132);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 2px 1px;
+    cursor: pointer;
+}
+#ano-fabricacao{
+    width: 180px;
+}
+#valor-diaria{
+    width: 180px;
+}
+#quilometragem{
+    width: 180px;
+}
+#placa{
+    width: 100px;
+}
+#modelo{
+    width: 300px;
+}
+
+#salvarVeiculoBtn{
+    margin-left: 215px; 
+  }
+
+#th-ano-fabricacao{
+    width: 30px;
+    text-align: center;
+}
+#th-valor-diaria{
+    width: 44px;
+    text-align: center;
+}
+#th-modelo{
+    width: 50px;
+    text-align: center;
+}
+#th-tipo{
+    width: 34px;
+    text-align: center;
+}
+#th-placa{
+    width: 56px;
+    text-align: center;
+}
+#th-quilometragem{
+    width: 34px;
+    text-align: center;
+}
+#acoes{
+    width: 25px;
+    text-align: center;
+}
+th{
+    text-align: center;
+}
+#tipo-moto{
+  margin-left: -135px;
+  margin-right: 0px; 
+  display: inline; 
+}
+#fred{
+    margin-left: 0px;
+    margin-right: 0px; 
+    display: inline; 
+  }
+  
+
+#tipo-carro{
+    margin-right: 0px;
+    margin-left: 0px;
+    display: inline; 
+  }
+
+#jp{
+    margin-right: 0px;
+    margin-left: 0px; 
+    display: inline; 
+  }
+  #tabela-locacoes {
+    width: 800px; 
+    margin: 0; 
+    border-collapse: collapse;
+}
+
+#tabela-locacoes th,
+#tabela-locacoes td {
+    border: 1px solid #ddd;
+    padding: 10px; 
+    text-align: left;
+}
+
+#tabela-locacoes th {
+    background-color: #003366;
+    color: white; 
+    padding-top: 14px;
+    padding-bottom: 14px; 
+}
+
+
+#tabela-locacoes th:nth-child(1),
+#tabela-locacoes th:nth-child(2),
+#tabela-locacoes th:nth-child(3),
+#tabela-locacoes th:nth-child(4) {
+    width: 200px;
+    margin: 0 auto; 
+}
+
+#tabela-locacoes tr:nth-child(even) {
+    background-color:#e7eaf0 
+}
+
+#tabela-locacoes tr:nth-child(odd) {
+    background-color: #cbd2e0 
+}
+
+hr {
+    border: 1px inset rgb(136, 196, 234);
+    }
+
+    #tabela-locacoes td:last-child {
+        display: flex;
+        gap: 10px; 
+    }
+    
+    #tabela-locacoes td:last-child button {
+        background-color: rgb(3, 80, 132);
+        color: white;
+        border: none;
+        padding: 5px 10px; 
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        margin: 2px 1px;
+        cursor: pointer;
+    }
+
+    #th-radio{
+        width: 6px;
+    }

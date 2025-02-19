@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Locadora de Veículos</title>
+    <link rel="stylesheet" href="locadoraVeiculos.css" type="text/css">
+</head>
+<body>
+    <header><h1>Locadora de Veículos</h1></header>
+    <div>
+        <aside>
+            <ul>
+                <li class="submenu">Clientes
+                    <ul>
+                        <li><button onclick="mostrarFormInclusaoCliente()">Incluir</button></li>
+                        <li><button onclick="mostrarListaClientes()">Consultar</button></li>
+                    </ul>
+                </li>
+                <li class="submenu">Veículos
+                    <ul>
+                        <li><button onclick="mostrarFormInclusaoVeiculo()">Incluir</button></li>
+                        <li><button onclick="mostrarListaVeiculos()">Consultar</button></li>
+                    </ul>
+                </li>
+                <li class="submenu">Locação
+                    <ul>
+                        <li><button id="snoopjob" onclick="mostrarListaLocacoes()">Consultar</button></li>
+                    </ul>
+                </li>
+            </ul>
+        </aside>
+        <main>
+        
+            <div id="incluir-cliente" style="display:none;">
+                <h2>Cadastro de Clientes</h2>
+                <hr/>
+                <form id="form-cliente">
+                    <label for="cpf">CPF:</label>
+                    <input type="text" id="cpf" name="cpf">
+                    <span id="erro-cpf" style="color:red;"></span>
+                    <br>
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome">
+                    <span id="erro-nome" style="color:red;"></span>
+                    <br>
+                    <label for="data-nascimento">Data de Nascimento:</label>
+                    <input type="date" id="data-nascimento" name="data-nascimento">
+                    <span id="erro-data-nascimento" style="color:red;"></span>
+                    <br>
+                    <button class="salvarBtn" type="submit">Salvar</button>
+                </form>
+            </div>
+
+            <div id="consultar-clientes" style="display:none;">
+                <h2 id="lista-clientes"> Lista de Clientes </h2>
+                <hr/>
+                <table id="tabela-clientes">
+                    <thead>
+                        <tr>
+                            <th id="th-cpf">CPF</th>
+                            <th id="th-nome">Nome</th>
+                            <th>Data de Nascimento</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="incluir-veiculo" style="display:none;">
+                <h2>Cadastro de Veículos</h2>
+                <hr/>
+                <form id="form-veiculo">
+                    <label for="placa">Placa:</label>
+                    <input type="text" id="placa" name="placa">
+                    <span id="erro-placa" style="color:red;"></span>
+                    <br>
+                        <label>Tipo:</label>
+                        <input type="radio" id="tipo-carro" name="tipo" value="Carro">
+                        <label id="jp" for="tipo-carro">Carro</label>
+                        <input type="radio" id="tipo-moto" name="tipo" value="Moto">
+                        <label id="fred" for="tipo-moto">Moto</label>
+                    
+                    <span id="erro-tipo" style="color:red;"></span>
+                    <br>
+                    <label for="modelo">Modelo:</label>
+                    <input type="text" id="modelo" name="modelo">
+                    <span id="erro-modelo" style="color:red;"></span>
+                    <br>
+                    <label for="ano-fabricacao">Ano:</label>
+                    <input class="medio" type="text" id="ano-fabricacao" name="ano-fabricacao">
+                    <span id="erro-ano-fabricacao" style="color:red;"></span>
+                    <br>
+                    <label for="valor-diaria">Valor da Diária:</label>
+                    <input class="medio" type="text" id="valor-diaria" name="valor-diaria" step="0.01">
+                    <span id="erro-valor-diaria" style="color:red;"></span>
+                    <br>
+                    <label for="quilometragem">Quilometragem:</label>
+                    <input class="medio" type="text" id="quilometragem" name="quilometragem">
+                    <span id="erro-quilometragem" style="color:red;"></span>
+                    <br>
+                    <hr id="jobson">
+                    <button class="salvarBtn" id="salvarVeiculoBtn" type="submit">Salvar</button>
+                </form>
+            </div>
+
+            <div id="consultar-veiculos" style="display:none;">
+                <h2 id="lista-veiculos"> Lista de Veículos </h2>
+                <hr/>
+                <table id="tabela-veiculos">
+                    <thead>
+                        <tr>
+                            <th id="th-placa">Placa</th>
+                            <th id="th-tipo">Tipo</th>
+                            <th id="th-modelo">Modelo</th>
+                            <th id="th-ano-fabricacao">Ano</th>
+                            <th id="th-valor-diaria">Diária</th>
+                            <th id="th-quilometragem">Km</th>
+                            <th id="acoes">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div id="aluguel-veiculos" style="display:none;">
+                <h2 id="locacao-veiculos"> Locação de Veículos </h2>
+                <hr/>
+                <div id="info-cliente">
+                    <p id="cpf-job">CPF: <span id="cpf-cliente"></span></p>
+                    <br>
+                    <p id="nome-job">Nome: <span id="nome-cliente"></span></p>
+                </div>
+                <table id="tabela-veiculos">
+                    <thead>
+                        <tr>
+                            <th id="th-radio"></th>
+                            <th id="th-placa">Placa</th>
+                            <th id="th-tipo">Tipo</th>
+                            <th id="th-modelo">Modelo</th>
+                            <th id="th-ano-fabricacao">Ano</th>
+                            <th id="th-valor-diaria">Diária</th>
+                            <th id="th-quilometragem">Km</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <div id="acoes-container"></div>
+                <span id="mensagem-erro-locacao" style="color:red;"></span>
+            </div>
+            <div id="consultar-locacoes" style="display:none;">
+                <h2 id="locacoes"> Locações </h2>
+                <hr/>
+                <table id="tabela-locacoes">
+                    <thead>
+                        <tr>
+                            <th id="th-cpf">CPF</th>
+                            <th id="th-nome">Nome</th>
+                            <th id="th-placa">Placa</th>
+                            <th id="th-modelo">Modelo</th>
+                            <th id="th-valor-diaria">Diária</th>
+                            <th id="th-data-da-locacao">Data da Locação</th>
+                            <th id="acoes">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div id="devolver-veiculo" style="display:none;">
+                <h2>Devolução de Veículo</h2>
+                <hr/>
+                <form id="form-devolucao">
+                    
+                    
+                    <br>
+                    <div id="informacoes-locacao">
+                        <p>CPF: <span id="info-cpf"></span></p><br>
+                        <p>Nome: <span id="info-nome"></span></p><br>
+                    
+                        <p>Placa: <span id="info-placa"></span></p><br>
+                        
+                        <p>Modelo: <span id="info-modelo"></span></p><br>
+                        
+                        <p>Valor Diária: <span id="info-valor-diaria"></span></p><br>
+                        
+                        <p>Quilometragem: <span id="info-quilometragem"></span></p><br>
+                        
+                        <p>Data da Locação: <span id="info-data-locacao"></span></p><br>
+                    </div>
+                    
+                    <label for="quilometragem-devolucao">Quilometragem Atual:</label>
+                    <input type="number" id="quilometragem-devolucao" name="quilometragem-devolucao">
+                    <span id="erro-km" style="color:red;"></span>
+                    <hr>
+                    <button class="salvarBtn" type="submit">Confirmar</button>
+                </form>
+            </div>
+            
+        </main>
+    </div>
+    <script src="locadoraVeiculos.js"></script>
+</body>
+</html>

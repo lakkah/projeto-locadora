@@ -22,34 +22,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const quilometragemInput = document.getElementById('quilometragem');
     const tabelaVeiculos = document.getElementById('tabela-veiculos').getElementsByTagName('tbody')[0];
 
-    const incluirClienteBtn = document.querySelectorAll('button')[0];
-    const consultarClientesBtn = document.querySelectorAll('button')[1];
-    const incluirVeiculoBtn = document.querySelectorAll('button')[2];
-    const consultarVeiculosBtn = document.querySelectorAll('button')[3];
-    const consultarlocacoesBtn = document.querySelectorAll('button')[4];
+    const btnIncluirCliente = document.getElementById('btn-incluir-cliente');
+    const btnConsultarClientes = document.getElementById('btn-consultar-clientes');
+    const btnIncluirVeiculo = document.getElementById('btn-incluir-veiculo');
+    const btnConsultarVeiculos = document.getElementById('btn-consultar-veiculos');
+    const btnConsultarLocacoes = document.getElementById('btn-consultar-locacoes');
+
+    btnIncluirCliente.addEventListener('click', mostrarFormInclusaoCliente);
+    btnConsultarClientes.addEventListener('click', mostrarListaClientes);
+    btnIncluirVeiculo.addEventListener('click', mostrarFormInclusaoVeiculo);
+    btnConsultarVeiculos.addEventListener('click', mostrarListaVeiculos);
+    btnConsultarLocacoes.addEventListener('click', mostrarListaLocacoes);
 
 
     carregarDados();
-
-    incluirClienteBtn.addEventListener('click', () => {
-        mostrarFormInclusaoCliente();
-    });
-
-    consultarClientesBtn.addEventListener('click', () => {
-        mostrarListaClientes();
-    });
-
-    incluirVeiculoBtn.addEventListener('click', () => {
-        mostrarFormInclusaoVeiculo();
-    });
-
-    consultarVeiculosBtn.addEventListener('click', () => {
-        mostrarListaVeiculos();
-    });
-
-    consultarlocacoesBtn.addEventListener('click', () => {
-        mostrarListaLocacoes();
-    });
 
     formCliente.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -185,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
             veiculoEmEdicao = null; 
             alert('Veículo atualizado com sucesso!');
         } else {
-            veiculos.push({ placa, tipo, modelo, anoFabricacao, valorDiaria, quilometragem });
+            veiculos.push({ placa, tipo, modelo, anoFabricacao, valorDiaria, quilometragem, disponivel: true });
             alert('Veículo incluído com sucesso!');
         }
     
@@ -227,47 +213,45 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.getElementById('form-devolucao').addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        const quilometragemDevolucao = parseInt(document.getElementById('quilometragem-devolucao').value.trim(), 10);
-        
-        if (isNaN(quilometragemDevolucao) || quilometragemDevolucao <= 0) {
-            document.getElementById('erro-km').textContent = 'Valor deve ser maior do que a quilometragem atual do veiculo';
-            return;
-        }
+    e.preventDefault();
     
+    const quilometragemDevolucao = parseInt(document.getElementById('quilometragem-devolucao').value.trim(), 10);
+    const placaVeiculo = document.getElementById('info-placa').textContent;
+    const veiculo = veiculos.find(v => v.placa === placaVeiculo);
+
+    if (isNaN(quilometragemDevolucao) || quilometragemDevolucao < veiculo.quilometragem) {
+        document.getElementById('erro-km').textContent = 'Valor deve ser maior ou igual a quilometragem atual do veículo';
+        return;
+    }
+
+    const locacaoIndex = locacoes.findIndex(locacao => locacao.placaVeiculo === placaVeiculo);
+
+    if (locacaoIndex !== -1) {
+        const locacaoRemovida = locacoes[locacaoIndex];
+        const clienteDaLocacao = clientes.find(c => c.cpf === locacaoRemovida.cpfCliente);
+
         
-        const locacaoIndex = locacoes.findIndex(locacao => {
-            const veiculo = veiculos.find(v => v.placa === locacao.placaVeiculo);
-            return veiculo && quilometragemDevolucao > veiculo.quilometragem;
-        });
-    
-        if (locacaoIndex !== -1) {
-            const locacao = locacoes[locacaoIndex];
-            
-            
-            const veiculo = veiculos.find(v => v.placa === locacao.placaVeiculo);
-            if (veiculo) {
-                veiculo.disponivel = true;
-                veiculo.quilometragem = quilometragemDevolucao;
+        if (clienteDaLocacao) {
+            const indexLocacaoCliente = clienteDaLocacao.locacoes.findIndex(l => l.placa === placaVeiculo);
+            if (indexLocacaoCliente > -1) {
+                clienteDaLocacao.locacoes.splice(indexLocacaoCliente, 1);
             }
-    
-            
-            locacoes.splice(locacaoIndex, 1);
-            
-            
-            atualizarListaLocacoes();
-            
-            
-            document.getElementById('devolver-veiculo').style.display = 'none';
-            
-            alert('Veículo devolvido com sucesso!');
-            salvarDados();
-            mostrarListaLocacoes();
-        } else {
-            document.getElementById('erro-km').textContent = 'Valor deve ser maior do que a quilometragem atual do veiculo';
         }
-    });
+        
+        if (veiculo) {
+            veiculo.disponivel = true;
+            veiculo.quilometragem = quilometragemDevolucao;
+        }
+
+        locacoes.splice(locacaoIndex, 1);
+
+        alert('Veículo devolvido com sucesso!');
+        salvarDados();
+        mostrarListaLocacoes(); 
+    } else {
+        document.getElementById('erro-km').textContent = 'Erro ao processar devolução.';
+    }
+});
     
 
     function mostrarFormInclusaoCliente() {
@@ -317,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('consultar-locacoes').style.display = 'none';
         document.getElementById('devolver-veiculo').style.display = 'none';
         atualizarListaClientes();
-        atualizarEstadoBotoes();
+        
     }
 
     function mostrarFormInclusaoVeiculo() {
@@ -337,7 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
         anoFabricacaoInput.disabled = false;
         valorDiariaInput.disabled = false;
         quilometragemInput.disabled = false;
-        atualizarEstadoBotoes();
+        
     }
 
     function mostrarListaVeiculos() {
@@ -349,7 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('consultar-locacoes').style.display = 'none';
         document.getElementById('devolver-veiculo').style.display = 'none';
         atualizarListaVeiculos();
-        atualizarEstadoBotoes();
+        
     }
 
     function abrirModalAluguel(cliente) {
@@ -433,10 +417,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Veículo alugado com sucesso!');
                 mostrarListaLocacoes();
                 salvarDados();
-
-                atualizarEstadoBotoes();
-            }
-        } else {
+             }
+        
+            } else {
             mensagemErroLocacao.textContent = 'Selecione um veículo para alugar.';
         }
     }
@@ -457,39 +440,41 @@ document.addEventListener('DOMContentLoaded', () => {
     function atualizarListaClientes() {
         tabelaClientes.innerHTML = '';
         clientes.forEach(cliente => {
-            const row = tabelaClientes.insertRow();
-            row.insertCell(0).textContent = cliente.cpf;
-            row.insertCell(1).textContent = cliente.nome;
-            row.insertCell(2).textContent = cliente.dataNascimento;
-    
-            const acoesCell = row.insertCell(3);
-    
-            const excluirBtn = document.createElement('button');
-            excluirBtn.classList.add('botoes-usuario-excluir');
-            excluirBtn.textContent = 'Excluir';
-            excluirBtn.disabled = cliente.locacoes.length > 0;
-            excluirBtn.onclick = () => {
-                if (confirm('Tem certeza que deseja excluir este cliente?')) {
-                    const index = clientes.indexOf(cliente);
-                    if (index > -1) {
-                        clientes.splice(index, 1);
-                        atualizarListaClientes();
-                        salvarDados();
-                        atualizarEstadoBotoes();
-                    }
+        const row = tabelaClientes.insertRow();
+        row.insertCell(0).textContent = cliente.cpf;
+        row.insertCell(1).textContent = cliente.nome;
+        row.insertCell(2).textContent = cliente.dataNascimento;
+
+        const acoesCell = row.insertCell(3);
+
+        const excluirBtn = document.createElement('button');
+        excluirBtn.classList.add('botoes-usuario-excluir');
+        excluirBtn.textContent = 'Excluir';
+        excluirBtn.disabled = cliente.locacoes.length > 0;
+        
+        excluirBtn.onclick = () => {
+            if (confirm('Tem certeza que deseja excluir este cliente?')) {
+                const index = clientes.indexOf(cliente);
+                if (index > -1) {
+                    clientes.splice(index, 1);
+                    salvarDados();
                 }
-            };
-            acoesCell.appendChild(excluirBtn);
-            
-            const alugarBtn = document.createElement('button');
-            alugarBtn.classList.add('botoes-usuario-alugar');
-            alugarBtn.textContent = 'Alugar';
-            alugarBtn.disabled = cliente.locacoes.length > 0 || !temVeiculosDisponiveis();
-            alugarBtn.onclick = () => abrirModalAluguel(cliente);
-            acoesCell.appendChild(alugarBtn);
-            atualizarEstadoBotoes();
-        });
-    }
+            }
+        };
+
+        
+        acoesCell.appendChild(excluirBtn);
+        
+        const alugarBtn = document.createElement('button');
+        alugarBtn.classList.add('botoes-usuario-alugar');
+        alugarBtn.textContent = 'Alugar';
+
+        alugarBtn.disabled = cliente.locacoes.length > 0 || !temVeiculosDisponiveis();
+        
+        alugarBtn.onclick = () => abrirModalAluguel(cliente);
+        acoesCell.appendChild(alugarBtn);
+    });
+}
     
 
     function temVeiculosDisponiveis() {
@@ -647,10 +632,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${dia}/${mes}/${ano}`;
     }
 
-    function temVeiculosDisponiveis() {
-        return true; 
-    }
-
+    
     function salvarDados() {
         localStorage.setItem('clientes', JSON.stringify(clientes));
         localStorage.setItem('veiculos', JSON.stringify(veiculos));
@@ -683,4 +665,4 @@ document.addEventListener('DOMContentLoaded', () => {
         
         atualizarListaLocacoes();
     }
-});
+}); 
